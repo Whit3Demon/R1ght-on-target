@@ -14,24 +14,28 @@ class ViewController: UIViewController {
     @IBOutlet weak var label: UILabel!
     
     var number = 0
-    var round = 0
+    var round = 1
     var points = 0
   
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        self.number = Int.random(in: 1...50)
+        self.label.text = String(self.number)
       
         // Do any additional setup after loading the view.
     }
 
+    override func loadView() {
+        super.loadView()
+        let versionLabel = UILabel(frame: CGRect(x: 20, y: 10, width: 200, height: 20))
+        versionLabel.text = "Tvoya mat' sdohla(("
+        self.view.addSubview(versionLabel)
+    }
+    
     @IBAction func checkNumber() {
-        if self.round == 0 {
-            self.number = Int.random(in: 1...50)
-            self.label.text = String(self.number)
-            self.round = 1
-        }
-        else {
+       
+      
             let numSlider = Int(self.slider.value.rounded())
             if numSlider > self.number {
                 self.points += 50 - numSlider + self.number
@@ -52,6 +56,8 @@ class ViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
             self.round = 1
             self.points = 0
+            self.number = Int.random(in: 1...50)
+            self.label.text = String(self.number)
             }
             else {
                 self.round += 1
@@ -59,6 +65,11 @@ class ViewController: UIViewController {
             self.number = Int.random(in: 1...50)
             self.label.text = String(self.number)
         }
+   
+    @IBAction func showNextScreen(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(identifier: "SecondViewController")
+        self.present(viewController, animated: true, completion: nil)
     }
 }
 
