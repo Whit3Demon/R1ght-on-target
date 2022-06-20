@@ -66,10 +66,20 @@ class ViewController: UIViewController {
             self.label.text = String(self.number)
         }
    
+    
+    lazy var secondViewController: SecondViewController = getSecondViewController()
+    
+    private func getSecondViewController() -> SecondViewController{
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = storyboard.instantiateViewController(identifier: "SecondViewController")
+        return viewController as! SecondViewController
+    }
+    
     @IBAction func showNextScreen(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(identifier: "SecondViewController")
         self.present(viewController, animated: true, completion: nil)
     }
+    
 }
 
